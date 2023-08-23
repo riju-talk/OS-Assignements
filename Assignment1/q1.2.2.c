@@ -1,6 +1,8 @@
 #include <stdio.h>
-#include <sys/wait.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <signal.h>
+#include <sys/wait.h>
 
 int fib(int n){
     if(n<2){
@@ -20,20 +22,25 @@ int fac(int n){
     }
 }
 
+int main() {
+    __pid_t pid;
 
-int main(){
+    pid = fork();
 
-    int child=vfork();
-    
-    if(child<0){
-        printf("Fork Failed\n");
+    if (pid < 0) {
+        perror("Fork failed");
+        exit(1);
     }
-    else if(child==0){
+
+    if (pid == 0) {
+        sleep(3);
         printf("%d\n",fac(4));
-    }
-    else{
-        wait(NULL);
+    } 
+    else {
+        kill(pid,SIGSTOP);
         printf("%d\n",fib(16));
+        kill(pid,SIGCONT);
+        wait(NULL);
     }
     return 0;
 }
