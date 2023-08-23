@@ -1,0 +1,12 @@
+In this file we have attempted the first of the asssignment
+
+The first part -
+
+In the first part we have made fours print statements. Given in the question
+
+    - The first print statement executes independdantly
+    - The second print statement eceutes immediatly after fork() system call is called 
+    meaning as soon as we create a child process the child should run this statement.
+    - The third statment runs consecutively, which means that the second and the third 
+    print statements are part of the child process.
+    - The fourth and the final one executes afte the child is done execution. 

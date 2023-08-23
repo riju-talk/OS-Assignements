@@ -16,7 +16,7 @@ int main(){
     }
     else{
         wait(NULL);
-        printf("ID of P's Child is %d\n",(int)getpid());
+        printf("ID of P's Child is %d\n",(int) par_id);
     }
     
     return 0;

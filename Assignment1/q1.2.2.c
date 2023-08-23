@@ -22,8 +22,9 @@ int fac(int n){
 
 
 int main(){
-    printf("%d\n",fib(16));
-    int child=fork();
+
+    int child=vfork();
+    
     if(child<0){
         printf("Fork Failed\n");
     }
@@ -32,6 +33,7 @@ int main(){
     }
     else{
         wait(NULL);
+        printf("%d\n",fib(16));
     }
     return 0;
 }
