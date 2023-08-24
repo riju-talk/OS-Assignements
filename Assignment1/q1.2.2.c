@@ -9,7 +9,7 @@ int fib_n(int n){
         return n;
     }
     else{
-        return fib(n-1)+(n-2);
+        return fib_n(n-1)+fib_n(n-2);
     }
 }
 
