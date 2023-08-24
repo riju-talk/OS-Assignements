@@ -4,12 +4,18 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-int fib(int n){
+int fib_n(int n){
     if(n<2){
         return n;
     }
     else{
-        return fib(n-1)+(n-2);
+        return fib_n(n-1)+fib_n(n-2);
+    }
+}
+
+int fib(int n){
+    for(int i=1;i<=n;i++){
+        printf("%d,",fib_n(i));
     }
 }
 
@@ -38,7 +44,7 @@ int main() {
     } 
     else {
         kill(pid,SIGSTOP);
-        printf("%d\n",fib(16));
+        fib(16);
         kill(pid,SIGCONT);
         wait(NULL);
     }
