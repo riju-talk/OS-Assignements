@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 void splitString(char* input, char delimiter, char substrings[3][1000], int count) {
     char* token = strtok(input, &delimiter);
@@ -48,6 +49,12 @@ int main() {
                 printf("%s\n",formattertime);
             }
             else{
+
+                if (access(set[1],F_OK) == -1) {
+                    printf("error: %s does not exist.\n",set[1]);
+                    continue;
+                }
+
                 stat(set[1],&info);
                 time_t mod_time = info.st_mtime;
                 struct tm date = *localtime(&mod_time);
@@ -57,7 +64,7 @@ int main() {
         } else if (strcmp(set[0], "exit()") == 0) {
             break;
         } else {
-            printf("%s\n", sentence);
+            printf("e: command not found\n");
         }
     }
     return 0;
