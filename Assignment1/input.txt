@@ -1,0 +1,4 @@
+5 4 product
+19 80 compare
+1 0 xor
+9 9 compare

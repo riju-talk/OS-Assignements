@@ -20,7 +20,7 @@ int main() {
     while (true) {
         char set[5][1000];
         char sentence[1000];
-        printf("--+++======>>>>> ");
+        printf("[:--+++======>>>>> ");
         fgets(sentence, sizeof(sentence), stdin);
 
         // Remove the newline character from the input
@@ -31,16 +31,70 @@ int main() {
         if (strcmp(set[0], "word") == 0) {            
             printf("Word\n");
         } else if (strcmp(set[0], "dir") == 0) {
-            printf("dir\n");
+
+            if(strcmp(set[1],"-r")==0){
+                
+                char foldername[20];  
+                strcpy(foldername,set[2]);
+
+                if (access(foldername, F_OK) == 0) {
+                    rmdir(foldername);
+                }
+
+                mkdir(foldername,0777);
+
+            }
+            else if(strcmp(set[1],"-v")==0){
+                
+                char foldername[20];  
+                strcpy(foldername,set[2]);
+
+                if (access(foldername, F_OK) == 0) {
+                    printf("e: directory exists\n");
+                }
+
+                if(mkdir(foldername,0777)==0){
+                    printf("making directory....\n");
+                    sleep(2);
+                    printf("direcotry made\n");
+                }
+            }
+            else{
+                
+                char foldername[20];  
+                strcpy(foldername,set[1]);
+
+                if (access(foldername, F_OK) == 0) {
+                    printf("e: directory exists\n");
+                }
+
+                mkdir(foldername,0777);
+            }
+
+
         } else if (strcmp(set[0], "date") == 0) {
+
             struct stat info;
             if(strcmp(set[1],"-d")==0){
+
+                if (access(set[2],F_OK) == -1) {
+                    printf("error: %s does not exist.\n",set[1]);
+                    continue;
+                }
+                
                 stat(set[2],&info);
                 time_t mod_time = info.st_mtime;
                 struct tm date = *localtime(&mod_time);
                 printf("%d:%d:%d\n",date.tm_hour,date.tm_min,date.tm_sec);
             }
             else if(strcmp(set[1],"-R")==0){
+
+                if (access(set[2],F_OK) == -1) {
+                    printf("e: %s does not exist.\n",set[1]);
+                    continue;
+                }
+
+
                 stat(set[2],&info);
                 time_t mod_time = info.st_mtime;
                 struct tm date = *localtime(&mod_time);
@@ -51,7 +105,7 @@ int main() {
             else{
 
                 if (access(set[1],F_OK) == -1) {
-                    printf("error: %s does not exist.\n",set[1]);
+                    printf("e: %s does not exist.\n",set[1]);
                     continue;
                 }
 
@@ -59,6 +113,7 @@ int main() {
                 time_t mod_time = info.st_mtime;
                 struct tm date = *localtime(&mod_time);
                 printf("%d/%d/%d %d:%d:%d\n",date.tm_mday,1+date.tm_mon,1900+date.tm_year,date.tm_hour,date.tm_min,date.tm_sec);
+            
             }
  
         } else if (strcmp(set[0], "exit()") == 0) {

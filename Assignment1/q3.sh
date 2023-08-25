@@ -1,7 +1,8 @@
 #!/bin/bash
 mkdir -p Result
 echo "">"Result/output.txt"
-calculate_xor(){
+
+xor(){
 	echo  $(("$value1"^"$value2"))
 }
 
@@ -37,7 +38,7 @@ file='input.txt'
 while IFS=" " read -r value1 value2 operation; do
 	case "$operation" in
 		"xor")
-			result=$(calculate_xor "value1" "value2")
+			result=$(xor "value1" "value2")
 			echo $xor1
 			;;
 		"product")
