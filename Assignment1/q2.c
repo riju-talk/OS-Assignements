@@ -17,10 +17,12 @@ void splitString(char* input, char delimiter, char substrings[3][1000], int coun
 }
 
 int main() {
+    int cdir_count=0;
+    char *dirs[100];
     while (true) {
         char set[5][1000];
         char sentence[1000];
-        printf("[:--+++======>>>>> ");
+        printf("[:--+++======:]>>==>> ");
         fgets(sentence, sizeof(sentence), stdin);
 
         // Remove the newline character from the input
@@ -29,7 +31,9 @@ int main() {
         splitString(sentence,' ',set,5);
         
         if (strcmp(set[0], "word") == 0) {            
-            printf("Word\n");
+
+
+
         } else if (strcmp(set[0], "dir") == 0) {
 
             if(strcmp(set[1],"-r")==0){
@@ -42,7 +46,7 @@ int main() {
                 }
 
                 mkdir(foldername,0777);
-
+                chdir(foldername);
             }
             else if(strcmp(set[1],"-v")==0){
                 
@@ -57,6 +61,7 @@ int main() {
                     printf("making directory....\n");
                     sleep(2);
                     printf("direcotry made\n");
+                    chdir(foldername);
                 }
             }
             else{
@@ -69,6 +74,7 @@ int main() {
                 }
 
                 mkdir(foldername,0777);
+                chdir(foldername);
             }
 
 
