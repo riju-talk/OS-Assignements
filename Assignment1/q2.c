@@ -23,6 +23,9 @@ void splitString(char* input, char delimiter, char substrings[3][1000], int coun
 int main() {
     int cdir_count=0;
     char *dirs[100];
+    char key[200];
+    getcwd(key,200);
+    strcat(key,"/mdir");
     while (true) {
         char set[5][1000];
         char sentence[1000];
@@ -46,29 +49,31 @@ int main() {
                 printf("%d\n",res);
             }
         } else if (strcmp(set[0], "dir") == 0) {
-            char key[200];
-            getcwd(key,200);
-            strcat(key,"/mkdir");
             char *args[]={key,set[1],set[2]};
+            bool f_exists=false;
+            if(strcmp("-r",set[1])==0 || strcmp("-v",set[1])==0 && (access(set[2],F_OK)==0)){
+                    f_exists=true;
+                }
+                else if(access(set[1],F_OK)==0){ 
+                    f_exists=true;
+                }
             int k=fork();
             if(k==0){
                 execv(key,args);
             }
             else{
                 wait(NULL);
-                if(strcmp("-r",set[1])==0 || strcmp("-v",set[1])==0){
+            }
+                if((strcmp("-r",set[1])==0 || strcmp("-v",set[1])==0 )&& (access(set[2],F_OK)==0 && !f_exists)){
                     chdir(set[2]);
                 }
-                else{
+                else if(access(set[1],F_OK)==0 && !f_exists){ 
                     chdir(set[1]);
                 }
-                
-                printf("%s\n",key);
-            }
         } else if (strcmp(set[0], "date") == 0) {
             char *args[]={"./time",set[1],set[2]};
             int k=fork();
-            if(k==0){
+            if(k==0){ 
                 execvp("./time",args);
             }
             else{
