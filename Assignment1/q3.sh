@@ -1,20 +1,19 @@
 #!/bin/bash
 mkdir -p Result
 echo "">"Result/output.txt"
-
-xor(){
+calculate_xor(){
 	echo  $(("$value1"^"$value2"))
 }
 
 
 compare(){
 	if [ "$value1" -eq "$value2" ]; then
-		echo "$value1 is equal to $value2"
+		echo "$value1"
 
 	elif [ "$value1" -gt "$value2" ]; then
-		echo "$value1 is greater than $value2"
+		echo "$value1"
 	else
-		echo "$value1 is less than $value2"
+		echo "$value2"
 	fi
 }
 
@@ -38,7 +37,7 @@ file='input.txt'
 while IFS=" " read -r value1 value2 operation; do
 	case "$operation" in
 		"xor")
-			result=$(xor "value1" "value2")
+			result=$(calculate_xor "value1" "value2")
 			echo $xor1
 			;;
 		"product")

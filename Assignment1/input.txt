@@ -1,4 +1,13 @@
-5 4 product
-19 80 compare
+-9 0 product
+9 -1 compare
+7 -8 product
+-9 10 compare
+-15 -8 product
+18 18 compare
+14 15 compare
 1 0 xor
-9 9 compare
+0 0 xor 
+1 1 xor 
+69 69 xor
+7042026851 7042026851 xor
+98710 56710 product
