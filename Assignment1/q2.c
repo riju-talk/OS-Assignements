@@ -39,98 +39,29 @@ int main() {
                 readwn(set[2]);
             }
             else if(strcmp(set[1],"-d")==0){
-                eaddiff(set[2],set[3]);   
+                readdiff(set[2],set[3]);   
             }            
             else{
                 int res = readefile(set[1]);
                 printf("%d\n",res);
             }
         } else if (strcmp(set[0], "dir") == 0) {
-
-            if(strcmp(set[1],"-r")==0){
-                
-                char foldername[20];  
-                strcpy(foldername,set[2]);
-
-                if (access(foldername, F_OK) == 0) {
-                    rmdir(foldername);
-                }
-
-                mkdir(foldername,0777);
-                chdir(foldername);
-            }
-            else if(strcmp(set[1],"-v")==0){
-                
-                char foldername[20];  
-                strcpy(foldername,set[2]);
-
-                if (access(foldername, F_OK) == 0) {
-                    printf("e: directory exists\n");
-                }
-
-                if(mkdir(foldername,0777)==0){
-                    printf("making directory....\n");
-                    sleep(2);
-                    printf("direcotry made\n");
-                    chdir(foldername);
-                }
+            char *args[]={"./time",set[1],set[2],set[3]};
+            int k=fork();
+            if(k==0){
+                execvp("./dir",args);
             }
             else{
-                
-                char foldername[20];  
-                strcpy(foldername,set[1]);
-
-                if (access(foldername, F_OK) == 0) {
-                    printf("e: directory exists\n");
-                }
-
-                mkdir(foldername,0777);
-                chdir(foldername);
+                wait(NULL);
             }
-
-
         } else if (strcmp(set[0], "date") == 0) {
-
-            struct stat info;
-            if(strcmp(set[1],"-d")==0){
-
-                if (access(set[2],F_OK) == -1) {
-                    printf("error: %s does not exist.\n",set[1]);
-                    continue;
-                }
-                
-                stat(set[2],&info);
-                time_t mod_time = info.st_mtime;
-                struct tm date = *localtime(&mod_time);
-                printf("%d:%d:%d\n",date.tm_hour,date.tm_min,date.tm_sec);
-            }
-            else if(strcmp(set[1],"-R")==0){
-
-                if (access(set[2],F_OK) == -1) {
-                    printf("e: %s does not exist.\n",set[1]);
-                    continue;
-                }
-
-
-                stat(set[2],&info);
-                time_t mod_time = info.st_mtime;
-                struct tm date = *localtime(&mod_time);
-                char formattertime[200];
-                strftime(formattertime,200,"%a, %d %h %Y %T %z",&date);
-                printf("%s\n",formattertime);
+            char *args[]={"./time",set[1],set[2]};
+            int k=fork();
+            if(k==0){
+                execvp("./time",args);
             }
             else{
-
-                if (access(set[1],F_OK) == -1) {
-                    printf("e: %s does not exist.\n",set[1]);
-                    continue;
-                }
-
-                stat(set[1],&info);
-                time_t mod_time = info.st_mtime;
-                struct tm date = *localtime(&mod_time);
-                printf("%d/%d/%d %d:%d:%d\n",date.tm_mday,1+date.tm_mon,1900+date.tm_year,date.tm_hour,date.tm_min,date.tm_sec);
-            
+                wait(NULL);
             }
  
         } else if (strcmp(set[0], "exit()") == 0) {
