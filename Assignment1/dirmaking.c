@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 
 int main(int argc, char* argv[]){
-        if(strcmp(argv[1],"-r")==0){
+    if(strcmp(argv[1],"-r")==0){
                 
                 char foldername[20];  
                 strcpy(foldername,argv[2]);
@@ -17,7 +17,7 @@ int main(int argc, char* argv[]){
                 mkdir(foldername,0777);
                 chdir(foldername);
             }
-            else if(strcmp(argv[1],"-v")==0){
+    else if(strcmp(argv[1],"-v")==0){
                 
                 char foldername[20];  
                 strcpy(foldername,argv[2]);
@@ -33,7 +33,7 @@ int main(int argc, char* argv[]){
                     chdir(foldername);
                 }
             }
-            else{
+    else{
                 
                 char foldername[20];  
                 strcpy(foldername,argv[1]);

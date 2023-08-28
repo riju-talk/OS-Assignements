@@ -46,12 +46,13 @@ int main() {
                 printf("%d\n",res);
             }
         } else if (strcmp(set[0], "dir") == 0) {
-            char *args[]={"./time",set[1],set[2],set[3]};
+            char *args[]={"./mdir",set[1],set[2]};
             int k=fork();
             if(k==0){
-                execvp("./dir",args);
+                execvp("./mdir",args);
             }
             else{
+                
                 wait(NULL);
             }
         } else if (strcmp(set[0], "date") == 0) {
