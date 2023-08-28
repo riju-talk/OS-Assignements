@@ -4,6 +4,10 @@
 #include <time.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <sys/wait.h>
+#include "read.h"
+#include "rd.h"
+#include "rwn.h"
 
 void splitString(char* input, char delimiter, char substrings[3][1000], int count) {
     char* token = strtok(input, &delimiter);
@@ -30,10 +34,17 @@ int main() {
         
         splitString(sentence,' ',set,5);
         
-        if (strcmp(set[0], "word") == 0) {            
-
-
-
+        if (strcmp(set[0], "word") == 0) {
+            if(strcmp(set[1],"-n")==0){
+                readwn(set[2]);
+            }
+            else if(strcmp(set[1],"-d")==0){
+                eaddiff(set[2],set[3]);   
+            }            
+            else{
+                int res = readefile(set[1]);
+                printf("%d\n",res);
+            }
         } else if (strcmp(set[0], "dir") == 0) {
 
             if(strcmp(set[1],"-r")==0){
