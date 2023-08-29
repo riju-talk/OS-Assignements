@@ -47,10 +47,10 @@ while IFS=" " read -r value1 value2 operation; do
 			result=$(compare "value1" "value2")
 			;;
 		*)
-			echo "INVALID OPERATION: $operation"
+			echo "Enter a valid operation"
 			;;
 		esac
-		echo $result>>"Result/output.txt"
+		echo "Result of $operation $value1 $value2: $result">>"Result/output.txt"
 done < "input.txt"
 echo "Done"
 

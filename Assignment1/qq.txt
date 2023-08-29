@@ -1,0 +1,37 @@
+void delete_directory(const char *path) {
+    struct dirent *entry;
+    DIR *dir = opendir(path);
+
+    if (dir == NULL) {
+        perror("opendir");
+        return;
+    }
+
+    while ((entry = readdir(dir)) != NULL) {
+        // Ignore "." and ".." entries
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+            continue;
+        }
+
+        char entry_path[PATH_MAX];
+        snprintf(entry_path, sizeof(entry_path), "%s/%s", path, entry->d_name);
+
+        if (entry->d_type == DT_DIR) {
+            // Recursively delete subdirectories
+            delete_directory(entry_path);
+        } else {
+            // Delete files
+            if (remove(entry_path) != 0) {
+                perror("remove");
+            }
+        }
+    }
+
+    closedir(dir);
+
+    // After deleting all contents, delete the empty directory itself
+    if (rmdir(path) != 0) {
+        perror("rmdir");
+    }
+}
+

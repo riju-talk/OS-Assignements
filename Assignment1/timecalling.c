@@ -11,7 +11,7 @@ int main(int argc, char* argv[]){
             if(strcmp(argv[1],"-d")==0){
 
                 if (access(argv[2],F_OK) == -1) {
-                    printf("error: %s does not exist.\n",argv[1]);
+                    printf("error: %s does not exist.\n",argv[2]);
                     exit(1);
                 }
                 
@@ -23,7 +23,7 @@ int main(int argc, char* argv[]){
             else if(strcmp(argv[1],"-R")==0){
 
                 if (access(argv[2],F_OK) == -1) {
-                    printf("e: %s does not exist.\n",argv[1]);
+                    printf("e: %s does not exist.\n",argv[2]);
                     exit(1);
                 }
 

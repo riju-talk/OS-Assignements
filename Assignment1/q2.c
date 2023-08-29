@@ -22,17 +22,16 @@ void splitString(char* input, char delimiter, char substrings[3][1000], int coun
 
 int main() {
     int cdir_count=0;
-    char *dirs[100];
     char key[200];
     getcwd(key,200);
+    char path[200];
+    getcwd(path,200);
     strcat(key,"/mdir");
     while (true) {
         char set[5][1000];
         char sentence[1000];
-        printf("[:--+++======:]>>==>> ");
+        printf("[:--+++[%s]======:]>>==>> ",path);
         fgets(sentence, sizeof(sentence), stdin);
-
-        // Remove the newline character from the input
         sentence[strcspn(sentence, "\n")] = '\0';
         
         splitString(sentence,' ',set,5);
@@ -64,11 +63,20 @@ int main() {
             else{
                 wait(NULL);
             }
-                if((strcmp("-r",set[1])==0 || strcmp("-v",set[1])==0 )&& (access(set[2],F_OK)==0 && !f_exists)){
+                if((strcmp("-v",set[1])==0 )&& (access(set[2],F_OK)==0 && !f_exists)){
                     chdir(set[2]);
+                    strcat(path,"/");
+                    strcat(path,set[2]);
                 }
                 else if(access(set[1],F_OK)==0 && !f_exists){ 
                     chdir(set[1]);
+                    strcat(path,"/");
+                    strcat(path,set[1]);
+                }
+                else if(strcmp("-r",set[1])==0 && f_exists){
+                    chdir(set[2]);
+                    strcat(path,"/");
+                    strcat(path,set[2]);
                 }
         } else if (strcmp(set[0], "date") == 0) {
             char *args[]={"./time",set[1],set[2]};
