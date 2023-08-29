@@ -21,9 +21,12 @@ run_p: q1.1 q1.2.1 q1.2.2 q2
 	./q1.2.2
 
 	echo "The output for the second part.\n\n"
-	./q2  # Corrected executable name
+	./q2
+
+	echo "Running q3.sh...\n"
+	./q3.sh  # Run q3.sh script
 
 clean:
 	rm -f q1.1 q1.2.1 q1.2.2 q2 
 
-all: q1 q2 run_p clean
+all: run_p

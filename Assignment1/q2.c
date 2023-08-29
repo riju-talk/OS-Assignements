@@ -79,7 +79,7 @@ int main() {
                     strcat(path,set[2]);
                 }
         } else if (strcmp(set[0], "date") == 0) {
-            char *args[]={"./time",set[1],set[2]};
+            char *args[]={"./time",set[1],set[2],set[3],NULL};
             int k=fork();
             if(k==0){ 
                 execvp("./time",args);
